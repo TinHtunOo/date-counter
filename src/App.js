@@ -9,22 +9,38 @@ export default function App() {
       <Step step={step} setStep={setStep} />
       <Counter counter={counter} setCounter={setCounter} />
       <Text step={step} counter={counter} />
+      <Reset
+        step={step}
+        counter={counter}
+        setStep={setStep}
+        setCounter={setCounter}
+      />
     </div>
   );
 }
 
 function Step({ step, setStep }) {
-  function plusHandler() {
-    setStep((s) => s + 1);
-  }
-  function minusHandler() {
-    if (step > 1) setStep((s) => s - 1);
-  }
+  // function plusHandler() {
+  //   setStep((s) => s + 1);
+  // }
+  // function minusHandler() {
+  //   if (step > 1) setStep((s) => s - 1);
+  // }
   return (
     <div className="step">
-      <button onClick={minusHandler}>-</button>
+      {/* <button onClick={minusHandler}>-</button>
       <span>Step: {step}</span>
-      <button onClick={plusHandler}>+</button>
+      <button onClick={plusHandler}>+</button> */}
+      <input
+        type="range"
+        min="0"
+        max="10"
+        value={step}
+        onChange={(e) => {
+          setStep(e.target.value);
+        }}
+      />{" "}
+      <span>{step}</span>
     </div>
   );
 }
@@ -39,7 +55,12 @@ function Counter({ counter, setCounter }) {
   return (
     <div className="counter">
       <button onClick={minusHandler}>-</button>
-      <span>Count: {counter}</span>
+      {/* <span>Count: {counter}</span> */}
+      <input
+        type="number"
+        value={counter}
+        onChange={(e) => setCounter(Number(e.target.value))}
+      />
       <button onClick={plusHandler}>+</button>
     </div>
   );
@@ -58,7 +79,7 @@ function Text({ step, counter }) {
   // const day = wantedDate[2];
   // const year = wantedDate[3];
   return (
-    <p>
+    <h3>
       {currentDateInMS > wantedDateInMS
         ? `${-step * counter} days ago was `
         : ""}
@@ -67,6 +88,22 @@ function Text({ step, counter }) {
         : ""}
       {currentDateInMS === wantedDateInMS ? `Today was ` : ""}
       {wantedDate}
-    </p>
+    </h3>
+  );
+}
+
+function Reset({ setStep, setCounter, step, counter }) {
+  function resetHandler() {
+    setStep((s) => 1);
+    setCounter((c) => 0);
+  }
+  return (
+    <div>
+      {step !== 1 || counter !== 0 ? (
+        <button className="reset" onClick={resetHandler}>
+          Reset
+        </button>
+      ) : null}
+    </div>
   );
 }

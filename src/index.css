@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 .app {
   height: 100vh;
   display: flex;
@@ -27,4 +28,17 @@ button {
   height: 30px;
   border-radius: 5px;
   user-select: none;
+}
+
+input[type="number"] {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 16px;
+}
+
+.reset {
+  width: unset;
+  height: unset;
+  padding: 5px 10px;
 }
